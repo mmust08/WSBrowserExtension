@@ -16,24 +16,24 @@ async function bookSeatsForDateRange(floorId, seatId, emailId, startDate, endDat
     return 'Please fill in all fields.';
   }
 
-  return `Selected value: 
-    floorId: ${floorId}
-    seatId: ${seatId}
-    emailId: ${emailId}
-    startDate: ${startDate}
-    endDate: ${endDate}
-    `;
+  // return `Selected value: 
+  //   floorId: ${floorId}
+  //   seatId: ${seatId}
+  //   emailId: ${emailId}
+  //   startDate: ${startDate}
+  //   endDate: ${endDate}
+  //   `;
 
-  // for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-  //   try {
-  //     await bookSeat(floorId, seatId, emailId, date);
-  //     bookings.push(date.toISOString().split('T')[0]);
-  //   } catch (error) {
-  //     console.error(`Failed to book seat for ${date.toISOString().split('T')[0]}:`, error);
-  //   }
-  // }
+  for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+    try {
+      await bookSeat(floorId, seatId, emailId, date);
+      bookings.push(date.toISOString().split('T')[0]);
+    } catch (error) {
+      console.error(`Failed to book seat for ${date.toISOString().split('T')[0]}:`, error);
+    }
+  }
 
-  // return `Booked seats for dates: ${bookings.join(', ')}`;
+  return `Booked seats for dates: ${bookings.join(', ')}`;
 }
 
 async function bookSeat(floorId, seatId, emailId, date) {
