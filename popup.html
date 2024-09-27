@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Seat Booking</title>
-  <style>
-    body { width: 300px; padding: 10px; }
-    input, button { margin: 5px 0; width: 100%; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Booking</title>
+    <style>
+        body { width: 300px; padding: 10px; font-family: Arial, sans-serif; }
+        input, button { margin: 5px 0; width: 100%; padding: 5px; box-sizing: border-box; }
+        button { cursor: pointer; background-color: #123845; color: white; border: none; padding: 10px; }
+        button:hover { background-color: #335761; }
+        #error { color: red; margin-top: 10px; }
+        #status { color: #4CAF50; margin-top: 10px; }
+    </style>
 </head>
 <body>
-  <h2>Seat Booking</h2>
-  <input type="text" id="seatId" placeholder="Seat Id">
-  <input type="text" id="floorId" placeholder="Floor Id">
-  <input type="text" id="emailId" placeholder="Email Id">
-  <input type="date" id="startDate" placeholder="Start Date">
-  <input type="date" id="endDate" placeholder="End Date">
-  <button id="bookButton">Book Seats</button>
-  <div id="status" style="color: red;"></div>
-  <script src="scripts/popup.js"></script>
+  <a href="https://worksense.optimaze.net/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><div style="display: flex;justify-content: left;align-items: center;"><img src="icons/icon32.png" alt="EG worksense">&nbsp;<h2 style="
+      font-size: 30px;color: #123845;margin: 10px;">EG Worksense</h2></div></a> 
+
+    <input type="text" id="seatId" placeholder="Seat Id" autocomplete="on">
+    <input type="text" id="floorId" placeholder="Floor Id" autocomplete="on">
+    <input type="email" id="emailId" placeholder="Email Id" autocomplete="on">
+
+    <input type="date" id="startDate">
+    <input type="date" id="endDate">
+    
+    <button id="bookButton">Book Seats</button>
+    
+    <div id="status"></div>
+    <div id="error"></div>
+    <script src="scripts/popup.js"></script>
 </body>
 </html>
-
