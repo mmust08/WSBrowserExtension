@@ -1,24 +1,25 @@
 {
     "manifest_version": 2,
     "name": "Seat Booking Extension",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Book seats for a date range",
     "permissions": [
       "https://worksense.optimaze.net/*",
       "storage",
-      "activeTab"
+      "activeTab",
+      "tabs"
     ],
     "icons": {
-        "16": "icons/icon128.png",
-        "32": "icons/icon32.png",
-        "128": "icons/icon128.png"
+        "16": "icons/icon16_light.png",
+        "32": "icons/icon32_light.png",
+        "128": "icons/icon128_light.png"
     },
     "browser_action": {
       "default_popup": "popup.html",
       "default_icon": {
-        "16": "icons/icon128.png",
-        "32": "icons/icon32.png",
-        "128": "icons/icon128.png"
+        "16": "icons/icon128_light.png",
+        "32": "icons/icon32_light.png",
+        "128": "icons/icon128_light.png"
     }
     },
     "background": {

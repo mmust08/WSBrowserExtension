@@ -1,44 +1,38 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'bookSeats') {
-    bookSeatsForDateRange(request.floorId, request.seatId, request.emailId, request.startDate, request.endDate)
-      .then(result => sendResponse({ message: result }))
-      .catch(error => sendResponse({ message: `Error: ${error}` }));
+    bookSeatsForDateRange(request)
+      .then(sendResponse)
+      .catch(error => sendResponse({ success: false, message: `Error: ${error.message}` }));
     return true; // Indicates that the response is sent asynchronously
   }
 });
 
-async function bookSeatsForDateRange(floorId, seatId, emailId, startDate, endDate) {
+async function bookSeatsForDateRange({ floorId, seatId, emailId, startDate, endDate }) {
+  if (!floorId || !seatId || !emailId || !startDate || !endDate) {
+    throw new Error('Please fill in all fields.');
+  }
+
   const start = new Date(startDate);
   const end = new Date(endDate);
   const bookings = [];
 
-  if (!floorId || !seatId || !emailId || !startDate || !endDate) {
-    return 'Please fill in all fields.';
-  }
-
-  // return `Selected value: 
-  //   floorId: ${floorId}
-  //   seatId: ${seatId}
-  //   emailId: ${emailId}
-  //   startDate: ${startDate}
-  //   endDate: ${endDate}
-  //   `;
-
-  for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+  for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
     try {
       await bookSeat(floorId, seatId, emailId, date);
       bookings.push(date.toISOString().split('T')[0]);
     } catch (error) {
       console.error(`Failed to book seat for ${date.toISOString().split('T')[0]}:`, error);
+      throw new Error(`Failed to book seat for ${date.toISOString().split('T')[0]}. Please try again.`);
     }
   }
 
-  return `Booked seats for dates: ${bookings.join(', ')}`;
+  return { success: true, message: `Booked seats for dates: ${bookings.join(', ')}` };
 }
 
 async function bookSeat(floorId, seatId, emailId, date) {
-  const startTime = `${date.toISOString().split('T')[0]}T09:30:00+05:30`;
-  const endTime = `${date.toISOString().split('T')[0]}T18:30:00+05:30`;
+  const formattedDate = date.toISOString().split('T')[0];
+  const startTime = `${formattedDate}T09:30:00+05:30`;
+  const endTime = `${formattedDate}T18:30:00+05:30`;
 
   const response = await fetch(`https://worksense.optimaze.net/api/v1/floors/${floorId}/capacityobjects/${seatId}/bookings`, {
     method: 'POST',
@@ -53,8 +47,8 @@ async function bookSeat(floorId, seatId, emailId, date) {
       isPrivate: false,
       floorId: parseInt(floorId),
       capacityObjectId: parseInt(seatId),
-      startTime: startTime,
-      endTime: endTime,
+      startTime,
+      endTime,
       bookedFor: {
         email: emailId,
         bookingType: 2
@@ -67,5 +61,5 @@ async function bookSeat(floorId, seatId, emailId, date) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  return await response.json();
+  return response.json();
 }
