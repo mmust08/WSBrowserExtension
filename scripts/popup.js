@@ -50,11 +50,6 @@ function handleBookingResponse(response) {
   }
 }
 
-// //function to enable seat selection
-// function seatSelection(){
-//   chrome.runtime.sendMessage({ action: 'seatSelection' });
-// }
-
 document.getElementById('btnSeatIdSelection').addEventListener('click', () => {
   // Get the active tab
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -103,7 +98,6 @@ if (document.readyState === 'loading') {
 
 function setupEventListeners() {
   document.getElementById('bookButton').addEventListener('click', handleBooking);
-  // document.getElementById('btnSeatIdSelection').addEventListener('click', handleBooking);
 }
 
 

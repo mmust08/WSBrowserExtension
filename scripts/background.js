@@ -68,7 +68,7 @@ async function bookSeatsForDateRange({ floorId, seatId, emailId, startDate, endD
 //   return response.json();
 // }
 
-function getDaysInRange(startDate, endDate, limit = 14) {
+function getDaysInRange(startDate, endDate) {
   // Parse the input dates
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -82,11 +82,11 @@ function getDaysInRange(startDate, endDate, limit = 14) {
   const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
 
   // Check if the total days exceed 14 days
-  if (totalDays > limit) {
-    throw new Error("The date range exceeds two weeks (14 days)!");
+  if (totalDays > 14) {
+      throw new Error("The date range exceeds two weeks (14 days)!");
   }
 
-  // Initialize an array to hold the final list of days in dd-mm-yyyy format
+  // Initialize an array to hold the final list of Date objects
   const finalDays = [];
 
   // Iterate through the date range and add weekdays to the final list
@@ -94,9 +94,7 @@ function getDaysInRange(startDate, endDate, limit = 14) {
       const day = d.getDay();
       // Exclude Saturdays (6) and Sundays (0)
       if (day !== 0 && day !== 6) {
-          // Format the date to dd-mm-yyyy
-          const formattedDate = `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
-          finalDays.push(formattedDate);
+          finalDays.push(new Date(d)); // Push the actual Date object
       }
   }
 
