@@ -50,6 +50,19 @@ function handleBookingResponse(response) {
   }
 }
 
+// //function to enable seat selection
+// function seatSelection(){
+//   chrome.runtime.sendMessage({ action: 'seatSelection' });
+// }
+
+document.getElementById('btnSeatIdSelection').addEventListener('click', () => {
+  // Get the active tab
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    // Send a message to the content script
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'captureSeatID' });
+  });
+});
+
 // Function to update the seat number input field
 function updateSeatNumber(seatNumber) {
   document.getElementById('seatId').value = seatNumber;
@@ -90,6 +103,7 @@ if (document.readyState === 'loading') {
 
 function setupEventListeners() {
   document.getElementById('bookButton').addEventListener('click', handleBooking);
+  // document.getElementById('btnSeatIdSelection').addEventListener('click', handleBooking);
 }
 
 
