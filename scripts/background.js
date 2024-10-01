@@ -19,7 +19,7 @@ async function bookSeatsForDateRange({ floorId, seatId, emailId, startDate, endD
 
     for (let date of bookingList) {
       try {
-        // await bookSeat(floorId, seatId, emailId, date);
+        await bookSeat(floorId, seatId, emailId, date);
         bookings.push(date.toISOString().split('T')[0]);
       } catch (error) {
         throw new Error(`Failed to book seat for ${date.toISOString().split('T')[0]}. Please try again.`);
@@ -33,40 +33,40 @@ async function bookSeatsForDateRange({ floorId, seatId, emailId, startDate, endD
   return { status: true, message: `Booked seats for dates: ${bookings.join(', ')}` };
 }
 
-// async function bookSeat(floorId, seatId, emailId, date) {
-//   const formattedDate = date.toISOString().split('T')[0];
-//   const startTime = `${formattedDate}T09:30:00+05:30`;
-//   const endTime = `${formattedDate}T18:30:00+05:30`;
+async function bookSeat(floorId, seatId, emailId, date) {
+  const formattedDate = date.toISOString().split('T')[0];
+  const startTime = `${formattedDate}T09:30:00+05:30`;
+  const endTime = `${formattedDate}T18:30:00+05:30`;
 
-//   const response = await fetch(`https://worksense.optimaze.net/api/v1/floors/${floorId}/capacityobjects/${seatId}/bookings`, {
-//     method: 'POST',
-//     headers: {
-//       'accept': 'application/json, text/plain, */*',
-//       'accept-language': 'en-US,en;q=0.9,en-IN;q=0.8',
-//       'content-type': 'application/json',
-//       'x-worksense-client': 'Web'
-//     },
-//     body: JSON.stringify({
-//       bookingMethod: "Internal",
-//       isPrivate: false,
-//       floorId: parseInt(floorId),
-//       capacityObjectId: parseInt(seatId),
-//       startTime,
-//       endTime,
-//       bookedFor: {
-//         email: emailId,
-//         bookingType: 2
-//       }
-//     }),
-//     credentials: 'include'
-//   });
+  const response = await fetch(`https://worksense.optimaze.net/api/v1/floors/${floorId}/capacityobjects/${seatId}/bookings`, {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json, text/plain, */*',
+      'accept-language': 'en-US,en;q=0.9,en-IN;q=0.8',
+      'content-type': 'application/json',
+      'x-worksense-client': 'Web'
+    },
+    body: JSON.stringify({
+      bookingMethod: "Internal",
+      isPrivate: false,
+      floorId: parseInt(floorId),
+      capacityObjectId: parseInt(seatId),
+      startTime,
+      endTime,
+      bookedFor: {
+        email: emailId,
+        bookingType: 2
+      }
+    }),
+    credentials: 'include'
+  });
 
-//   if (!response.ok) {
-//     throw new Error(`HTTP error! status: ${response.status}`);
-//   }
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
-//   return response.json();
-// }
+  return response.json();
+}
 
 function getDaysInRange(startDate, endDate) {
   // Parse the input dates
