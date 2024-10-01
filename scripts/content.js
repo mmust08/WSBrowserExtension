@@ -1,5 +1,7 @@
 console.log('Content script loaded');
 
+let enableSeatSelection = false;
+
 function getFloorIdFromUrl() {
   const urlPattern = /\/floors\/(\d+)/;
   const match = window.location.href.match(urlPattern);
@@ -13,7 +15,49 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Sending floor ID:', floorId);
     sendResponse({ floorId: floorId });
   }
+  else if (request.action === "captureSeatID") {
+    enableSeatSelection = true;
+  }
+
   return true; // Indicates that the response is sent asynchronously
 });
 
 console.log('Content script setup complete');
+
+//Detect seatId
+
+let firstSeatIdFound = false;
+
+// Function to extract seat number and send it to the popup
+function captureSeatNumber(element) {
+  const id = element.id || '';  // Get the id of the element
+  const seatPattern = /test-floorplan-seat(?:-capacity-text)?-(\d+)/;
+  const match = seatPattern.exec(id);
+
+  if (match) {
+    const seatNumber = match[1];  // Extracted number from the id
+    firstSeatIdFound = true;
+    enableSeatSelection = false;
+    // Send the seat number to the popup
+    chrome.runtime.sendMessage({ seatNumber: seatNumber });
+  }
+  else {
+    if(!firstSeatIdFound) {
+      // Send a message to the popup to clear the seat number
+      chrome.runtime.sendMessage({ errorMsgSeatId: "Hover over the profile image to see the seat ID" });
+    }
+  }
+}
+
+// Mouseover event handler
+function handleMouseOver(event) {
+  if (!enableSeatSelection) {
+    return;
+  }
+
+  const element = event.target;
+  captureSeatNumber(element);
+}
+
+// Add event listener for mouseover
+document.addEventListener('mouseover', handleMouseOver);

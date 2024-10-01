@@ -46,17 +46,44 @@ function handleBookingResponse(response) {
   if (chrome.runtime.lastError) {
     showError(chrome.runtime.lastError);
   } else {
-    showStatus(response.message);
+    response.status ? showStatus(response.message) : showError(response.message);
   }
 }
+
+document.getElementById('btnSeatIdSelection').addEventListener('click', () => {
+  // Get the active tab
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    // Send a message to the content script
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'captureSeatID' });
+  });
+});
+
+// Function to update the seat number input field
+function updateSeatNumber(seatNumber) {
+  document.getElementById('seatId').value = seatNumber;
+  document.getElementById('seatIdAlertMessage').textContent = '';
+}
+
+function showErrorMessage(message) {
+  document.getElementById('seatIdAlertMessage').textContent = message;
+}
+
+// Listen for seat number from content script
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.seatNumber) {
+    updateSeatNumber(request.seatNumber);  // Update the seat number in the input field
+  }
+  else if (request.errorMsgSeatId){
+      showErrorMessage(request.errorMsgSeatId);
+  }
+});
 
 function showStatus(message) {
   document.getElementById('status').textContent = message;
 }
 
 function showError(error) {
-  console.error('Error:', error);
-  document.getElementById('error').textContent = `Error: ${error}`;
+  document.getElementById('error').textContent = `${error}`;
 }
 
 // Initialize popup immediately
@@ -72,5 +99,6 @@ if (document.readyState === 'loading') {
 function setupEventListeners() {
   document.getElementById('bookButton').addEventListener('click', handleBooking);
 }
+
 
 console.log('Popup script setup complete');

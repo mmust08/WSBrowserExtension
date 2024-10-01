@@ -11,13 +11,18 @@
         button:hover { background-color: #335761; }
         #error { color: red; margin-top: 10px; }
         #status { color: #4CAF50; margin-top: 10px; }
+        #seatIdAlertMessage { color: red; font-size: 12px;}
     </style>
 </head>
 <body>
   <a href="https://worksense.optimaze.net/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><div style="display: flex;justify-content: left;align-items: center;"><img src="icons/icon32.png" alt="EG worksense">&nbsp;<h2 style="
       font-size: 30px;color: #123845;margin: 10px;">EG Worksense</h2></div></a> 
 
-    <input type="text" id="seatId" placeholder="Seat Id" autocomplete="on">
+    <div class="seatSelectionWrapper" style="display: flex; gap: 4px;">
+        <input type="text" id="seatId" placeholder="Seat Id" autocomplete="on" style="flex: 8;">
+        <button id="btnSeatIdSelection" style="flex: 4;">Select Seat</button>
+    </div>
+    <span id="seatIdAlertMessage"></span>
     <input type="text" id="floorId" placeholder="Floor Id" autocomplete="on">
     <input type="email" id="emailId" placeholder="Email Id" autocomplete="on">
 
