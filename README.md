@@ -1,46 +1,33 @@
 # WSBrowserExtension Setup
 
-This README provides instructions for downloading a browser extension project from GitHub and configuring it in your browser.
+This guide provides instructions for setting up the WSBrowserExtension from GitHub.
 
-## Downloading the Project
+## Download the Project
 
-### Option 1: Download as ZIP
+Option 1: Download ZIP
+* Go to https://github.com/mmust08/WSBrowserExtension
+* Click the green "Code" button
+* Choose "Download ZIP"
+* Extract the ZIP file on your computer
 
-* Navigate to the GitHub repository `https://github.com/mmust08/WSBrowserExtension`.
-* Click on the green "Code" button near the top-right of the page.
-* Select "Download ZIP" from the dropdown menu.
-* Once downloaded, extract the ZIP file to your desired location.
+Option 2: Clone with Git
+* Open your terminal
+* Run: `git clone https://github.com/mmust08/WSBrowserExtension.git`
 
-### Option 2: Clone via Git
+## Configure the Extension
 
-* Open your terminal or command prompt.
-* Navigate to the directory where you want to clone the repository.
-* Run the following command, replacing `https://github.com/mmust08/WSBrowserExtension.git` with the actual URL of the GitHub repository:
-  ```
-  git clone https://github.com/mmust08/WSBrowserExtension.git
-  ```
-* Wait for the cloning process to complete.
+1. Open your browser's extension page:
+   * Chrome: `chrome://extensions/`
+   * Firefox: `about:addons` then click "Extensions"
+   * Edge: `edge://extensions/`
 
-## Configuring the Extension in Your Browser
+2. Enable "Developer mode"
 
-1. Open your browser's extension management page:
-   * For Chrome: Enter `chrome://extensions/` in the address bar.
-   * For Firefox: Enter `about:addons` in the address bar and click on "Extensions".
-   * For Edge: Enter `edge://extensions/` in the address bar.
+3. Click "Load unpacked" or "Load Temporary Add-on"
 
-2. Enable "Developer mode" (usually a toggle switch in the top-right corner).
+4. Select the folder containing the extension files (where you see `manifest.json`)
 
-3. Click on "Load unpacked" (Chrome/Edge) or "Load Temporary Add-on" (Firefox).
-
-4. Navigate to the directory where you extracted or cloned the extension files.
-
-5. Select the main folder of the extension (it should contain the `manifest.json` file).
-
-6. Click "Select Folder" (Chrome/Edge) or choose the `manifest.json` file (Firefox).
-
-7. The extension should now appear in your browser's extension list.
-
-8. If required, click on the extension icon in the browser toolbar to configure any additional settings.
+5. The WSBrowserExtension should now appear in your browser
 
 ## Troubleshooting
 
@@ -48,13 +35,10 @@ This README provides instructions for downloading a browser extension project fr
 * Check the browser's console for any error messages related to the extension.
 * Ensure that all the files mentioned in the `manifest.json` are present in the project folder.
 
-## Updating the Extension
+## Update the Extension
 
-* If you downloaded the ZIP, re-download and replace the files when an update is available.
-* If you used Git, navigate to the project folder in the terminal and run:
-  ```
-  git pull origin main
-  ```
-* After updating, refresh the extension in your browser's extension management page.
+* If you downloaded ZIP: Re-download and replace the old files
+* If you used Git: In the project folder, run `git pull origin main`
+* Refresh the extension in your browser's extension page
 
-For more detailed information or if you encounter any issues, please refer to the extension's documentation or reach out to the project maintainers.
+For help, check the [repository issues](https://github.com/mmust08/WSBrowserExtension/issues) or contact the developer.
