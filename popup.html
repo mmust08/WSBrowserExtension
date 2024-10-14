@@ -4,91 +4,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seat Booking</title>
-    <style>
-      body {
-        width: 300px;
-        padding: 10px;
-        font-family: Arial, sans-serif;
-        border-radius: 13px;
-      }
-      input,
-      button {
-        margin: 5px 0;
-        width: 100%;
-        padding: 5px;
-        box-sizing: border-box;
-      }
-      button {
-        cursor: pointer;
-        background-color: #123845;
-        color: white;
-        border: none;
-        padding: 10px;
-      }
-      button:hover {
-        background-color: #335761;
-      }
-      #error {
-        color: red;
-        margin-top: 10px;
-      }
-      #status {
-        color: #4caf50;
-        margin-top: 10px;
-      }
-      #seatIdAlertMessage {
-        color: red;
-        font-size: 12px;
-      }
 
-      body {
-        width: 300px; /* Set your preferred width */
-        transition: height 0.3s ease-in-out; /* Smooth height transition */
-      }
-    </style>
+    <link rel="stylesheet" href="styles/popup.css">
     <link
       href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"
       rel="stylesheet"
     />
   </head>
   <body>
-    <a
-      href="https://worksense.optimaze.net/"
-      target="_blank"
-      rel="noopener noreferrer"
-      style="text-decoration: none"
-      ><div style="display: flex; justify-content: left; align-items: center">
-        <img src="icons/icon32.png" alt="EG worksense" />&nbsp;
-        <h2 style="font-size: 30px; color: #123845; margin: 10px">
-          EG Worksense
-        </h2>
-      </div></a
-    >
+    <div class="container">
+      <a
+        href="https://worksense.optimaze.net/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="text-decoration: none"
+        ><div style="display: flex; justify-content: left; align-items: center">
+          <img src="icons/icon32.png" alt="EG worksense" />&nbsp;
+          <h2 style="font-size: 30px; color: #123845; margin: 10px">
+            EG Worksense
+          </h2>
+        </div></a
+      >
 
-    <div class="seatSelectionWrapper" style="display: flex; gap: 4px">
+      <div class="seatSelectionWrapper" style="display: flex; gap: 4px">
+        <input
+          type="text"
+          id="seatId"
+          placeholder="Seat Id"
+          autocomplete="on"
+          style="flex: 8"
+        />
+        <button id="btnSeatIdSelection" style="flex: 4">Select Seat</button>
+      </div>
+      <span id="seatIdAlertMessage"></span>
       <input
         type="text"
-        id="seatId"
-        placeholder="Seat Id"
-        autocomplete="on"
-        style="flex: 8"
+        id="floorId"
+        placeholder="Floor Id"
+        style="display: none"
+        readonly
       />
-      <button id="btnSeatIdSelection" style="flex: 4">Select Seat</button>
+
+      <input type="text" id="datepicker" placeholder="Pick a date" />
+
+      <input
+        type="email"
+        id="emailId"
+        placeholder="Email Id"
+        autocomplete="on"
+      />
+
+      <button id="bookButton">Book Seats</button>
+
+      <div id="status"></div>
+      <div id="error"></div>
     </div>
-    <span id="seatIdAlertMessage"></span>
-    <!-- <input type="text" id="floorId" placeholder="Floor Id" autocomplete="on" /> -->
-
-    <input type="text" id="datepicker" placeholder="Pick a date" />
-
-    <input type="email" id="emailId" placeholder="Email Id" autocomplete="on" />
-
-    <!-- <input type="date" id="startDate" />
-    <input type="date" id="endDate" /> -->
-
-    <button id="bookButton">Book Seats</button>
-
-    <div id="status"></div>
-    <div id="error"></div>
     <script src="scripts/popup.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
   </body>

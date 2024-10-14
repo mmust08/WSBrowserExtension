@@ -31,7 +31,7 @@ function getFloorIdFromUrl(url) {
 }
 
 function handleBooking() {
-  const fields = ["seatId", "floorId", "emailId", "startDate", "endDate"];
+  const fields = ["seatId", "floorId", "emailId", "datepicker"];
   const values = Object.fromEntries(
     fields.map((id) => [id, document.getElementById(id).value])
   );

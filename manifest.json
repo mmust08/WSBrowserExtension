@@ -21,7 +21,8 @@
       "16": "icons/icon128_light.png",
       "32": "icons/icon32_light.png",
       "128": "icons/icon128_light.png"
-    }
+    },
+    "chrome_style": false
   },
   "background": {
     "scripts": ["scripts/background.js"],
@@ -30,7 +31,8 @@
   "content_scripts": [
     {
       "matches": ["https://worksense.optimaze.net/*"],
-      "js": ["scripts/content.js"]
+      "js": ["scripts/content.js"],
+      "css": ["styles/popup.css"]
     }
   ],
   "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'"
