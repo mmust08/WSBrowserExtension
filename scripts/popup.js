@@ -41,6 +41,12 @@ function handleBooking() {
     return;
   }
 
+  // Save data to local storage
+  const emailIdValue = document.getElementById("emailId").value;
+  chrome.storage.local.set({ emailId: emailIdValue }, function() {
+    console.log('Data saved:' + emailId);
+  });
+
   chrome.runtime.sendMessage(
     { action: "bookSeats", ...values },
     handleBookingResponse
@@ -110,12 +116,25 @@ initializePopup();
 // Set up event listeners when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function() {
-    setupEventListeners(),
-    setUpDatePicker()
+    setupEventListeners();
+    setUpDatePicker();
+    getDataFromStorage();
   });
 } else {
   setupEventListeners();
   setUpDatePicker();
+  getDataFromStorage();
+}
+
+function getDataFromStorage() {
+  chrome.storage.local.get(['emailId'], function(result) {
+    console.log('Data retrieved:', result);
+
+    const emailId = result.emailId;
+    if(emailId){
+      document.getElementById("emailId").value = emailId;
+    }
+  });
 }
 
 function setupEventListeners() {
