@@ -58,6 +58,12 @@ function handleBookingResponse(response) {
 }
 
 document.getElementById("btnSeatIdSelection").addEventListener("click", () => {
+
+  const btnSeatIdSelection = document.getElementById('btnSeatIdSelection');
+  btnSeatIdSelection.innerText = 'Waiting for selection...';
+  btnSeatIdSelection.classList.add('clicked');
+  btnSeatIdSelection.classList.remove('seatSelected');
+
   // Get the active tab
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     // Send a message to the content script
@@ -79,6 +85,12 @@ function showErrorMessage(message) {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.seatNumber) {
     updateSeatNumber(request.seatNumber); // Update the seat number in the input field
+
+    const btnSeatIdSelection = document.getElementById('btnSeatIdSelection');
+    btnSeatIdSelection.innerText = 'Selected!';
+    btnSeatIdSelection.classList.remove('clicked');
+    btnSeatIdSelection.classList.add('seatSelected');
+
   } else if (request.errorMsgSeatId) {
     showErrorMessage(request.errorMsgSeatId);
   }
