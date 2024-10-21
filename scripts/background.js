@@ -20,7 +20,7 @@ async function bookSeatsForDateRange({ floorId, seatId, emailId, datepicker }) {
 
     for (let date of bookingList) {
       try {
-        // await bookSeat(floorId, seatId, emailId, date); //TODO: Uncomment this line once testing is done
+        await bookSeat(floorId, seatId, emailId, date); //TODO: Uncomment this line once testing is done
         bookings.push(date.toISOString().split('T')[0]);
       } catch (error) {
         throw new Error(`Failed to book seat for ${date.toISOString().split('T')[0]}. Please try again.`);
