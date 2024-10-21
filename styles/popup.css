@@ -1,17 +1,30 @@
+
 body {
+  transition: height 0.3s;
+}
+
+.container {
   width: 300px;
   padding: 10px;
   font-family: Arial, sans-serif;
   border-radius: 13px;
+  transition: height 0.3s;
 }
-input,
-button {
+
+#datepicker, #emailId,
+#btnSeatIdSelection, #bookButton {
   margin: 5px 0;
   width: 100%;
   padding: 5px;
   box-sizing: border-box;
 }
-button {
+
+#datepicker, #emailId{
+  border-radius: 5px;
+  border: 1px solid #123845;
+}
+
+#btnSeatIdSelection, #bookButton {
   cursor: pointer;
   background-color: #123845;
   color: white;
@@ -19,7 +32,8 @@ button {
   padding: 10px;
   border-radius: 4px;
 }
-button:hover {
+
+#btnSeatIdSelection:hover,  #bookButton:hover{
   background-color: #335761;
 }
 #error {
@@ -35,21 +49,15 @@ button:hover {
   font-size: 12px;
 }
 
-body {
-  width: 280px;
-  transition: height 0.3s;
-}
-
 .clicked {
   background-color: #335761;
-  
 }
 
-.seatSelected {
+#btnSeatIdSelection.seatSelected {
   background-color: #4caf50;
 }
 
-.seatSelected:hover {
+#btnSeatIdSelection.seatSelected:hover {
   background-color: #4caf4f8b;
   color: #333;
 }
