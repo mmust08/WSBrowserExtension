@@ -1,35 +1,39 @@
 {
-    "manifest_version": 2,
-    "name": "Seat Booking Extension",
-    "version": "1.2",
-    "description": "Book seats for a date range",
-    "permissions": [
-      "https://worksense.optimaze.net/*",
-      "storage",
-      "activeTab",
-      "tabs"
-    ],
-    "icons": {
-        "16": "icons/icon16_light.png",
-        "32": "icons/icon32_light.png",
-        "128": "icons/icon128_light.png"
+  "manifest_version": 2,
+  "name": "Seat Booking Extension",
+  "version": "1.4",
+  "description": "Book seats for a date range",
+  "permissions": [
+    "https://worksense.optimaze.net/*",
+    "storage",
+    "activeTab",
+    "tabs",
+    "<all_urls>"
+  ],
+  "icons": {
+    "16": "icons/icon16_light.png",
+    "32": "icons/icon32_light.png",
+    "128": "icons/icon128_light.png"
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon128_light.png",
+      "32": "icons/icon32_light.png",
+      "128": "icons/icon128_light.png"
     },
-    "browser_action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "icons/icon128_light.png",
-        "32": "icons/icon32_light.png",
-        "128": "icons/icon128_light.png"
-    }
-    },
-    "background": {
-      "scripts": ["scripts/background.js"],
-      "persistent": false
-    },
-    "content_scripts": [
+    "chrome_style": false
+  },
+  "background": {
+    "scripts": ["scripts/background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
     {
       "matches": ["https://worksense.optimaze.net/*"],
-      "js": ["scripts/content.js"]
+      "js": ["scripts/content.js"],
+      "css": ["styles/popup.css"]
     }
-  ]
-  }
+  ],
+  "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self'"
+}

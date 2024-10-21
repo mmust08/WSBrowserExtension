@@ -7,19 +7,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-async function bookSeatsForDateRange({ floorId, seatId, emailId, startDate, endDate }) {
-  if (!floorId || !seatId || !emailId || !startDate || !endDate) {
+async function bookSeatsForDateRange({ floorId, seatId, emailId, datepicker }) {
+  if (!floorId || !seatId || !emailId || !datepicker) {
     throw new Error("Please fill in all fields.");
   }
 
   const bookings = [];
+  const [startDate, endDate] = datepicker.split(' - '); 
 
   try{
     const bookingList = getDaysInRange(startDate, endDate);
 
     for (let date of bookingList) {
       try {
-        await bookSeat(floorId, seatId, emailId, date);
+        await bookSeat(floorId, seatId, emailId, date); //TODO: Uncomment this line once testing is done
         bookings.push(date.toISOString().split('T')[0]);
       } catch (error) {
         throw new Error(`Failed to book seat for ${date.toISOString().split('T')[0]}. Please try again.`);
